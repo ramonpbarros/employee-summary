@@ -13,10 +13,10 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
-let team = {
-    manager: [],
-    engineer: [],
-    intern: []
+let employeesArray = [];
+
+function start() {
+    addManager();
 }
 
 console.log("Please build your team:")
@@ -49,7 +49,8 @@ function addManager() {
             let managerEmail = answers.managerEmail;
             let managerOfficeNumber = answers.managerOfficeNumber;
 
-            team.manager.push(managerName, managerId, managerEmail, managerOfficeNumber);
+            const manager = new Manager(managerName, managerId, managerEmail, managerOfficeNumber);
+            employeesArray.push(manager);
 
             newMember();
         })
@@ -86,7 +87,8 @@ function addEngineer() {
         let engineerEmail = answers.engineerEmail;
         let engineerGitHub = answers.engineerGitHub;
 
-        team.engineer.push(engineerName, engineerId, engineerEmail, engineerGitHub);
+        const engineer = new Engineer(engineerName, engineerId, engineerEmail, engineerGitHub);
+        employeesArray.push(engineer);
 
         newMember();
     })
@@ -123,7 +125,8 @@ function addIntern() {
         let internEmail = answers.internEmail;
         let internSchool = answers.internSchool;
 
-        team.intern.push(internName, internId, internEmail, internSchool);
+        const intern = new Intern(internName, internId, internEmail, internSchool);
+        employeesArray.push(intern);
 
         newMember();
     })
@@ -140,7 +143,7 @@ function newMember() {
         choices: ['Engineer', 'Intern', 'I don\'t want to add any more team members']
     })
         .then(answers => {
-            let { addNewMember } = answers;
+            let addNewMember = answers.addNewMember;
             if (addNewMember === 'Engineer') {
                 addEngineer();
             }
@@ -156,44 +159,8 @@ function newMember() {
         })
 }
 
-// function generateHTML(answers) {
-//     return `
-//     <!DOCTYPE html>
-//     <html lang="en">
-    
-//     <head>
-//         <meta charset="UTF-8" />
-//         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-//         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-//         <title>My Team</title>
-//         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-//             integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-//         <link rel="stylesheet" href="style.css">
-//         <script src="https://kit.fontawesome.com/c502137733.js"></script>
-//     </head>
-    
-//     <body>
-//         <div class="container-fluid">
-//             <div class="row">
-//                 <div class="col-12 jumbotron mb-3 team-heading">
-//                     <h1 class="text-center">My Team</h1>
-//                 </div>
-//             </div>
-//         </div>
-//         <div class="container">
-//             <div class="row">
-//                 <div class="team-area col-12 d-flex justify-content-center">
-//                     {{ team }}
-//                 </div>
-//             </div>
-//         </div>
-//     </body>
-    
-//     </html>`;
-// }
-
 function writeFile() {
-    fsWriteFile("output/team.html", generateHTML(answers))
+    fsWriteFile(outputPath, render(employeesArray))
         .then(() => {
             console.log("Done writting file!")
         })
@@ -201,7 +168,8 @@ function writeFile() {
             throw error;
         })
 }
-addManager();
+
+start();
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
