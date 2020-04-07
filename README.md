@@ -27,6 +27,8 @@ Software engineering team generator command line application. The application wi
 ## Setup
 This application runs in the terminal. Make sure to `npm install` dependencies!
 
+Repository can be found here: [GitHub/ramonpbarros](https://github.com/ramonpbarros/employee-summary) Make sure to git clone and check out the code!
+
 ## Code Examples
 Show examples of usage:
 `put-your-code-here`
@@ -42,7 +44,8 @@ To-do list:
 * Wow improvement to be done 2
 
 ## Status
-Project is: _in progress_, _finished_, _no longer continue_ and why?
+Project is: _in progress_
+* Check the application in the terminal. The application will be invoked with the following command: `node app.js`
 
 ## Inspiration
 Add here credits. Project inspired by..., based on...
