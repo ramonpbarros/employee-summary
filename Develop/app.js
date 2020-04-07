@@ -4,12 +4,204 @@ const Intern = require("./lib/Intern");
 const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
+const util = require("util");
+
+const fsWriteFile = util.promisify(fs.writeFile);
 
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
+let team = {
+    manager: [],
+    engineer: [],
+    intern: []
+}
+
+console.log("Please build your team:")
+function addManager() {
+    inquirer.prompt([
+        {
+            type: 'input',
+            name: 'managerName',
+            message: 'What is your manager\'s name?'
+        },
+        {
+            type: 'input',
+            name: 'managerId',
+            message: 'What is your manager\'s id?'
+        },
+        {
+            type: 'input',
+            name: 'managerEmail',
+            message: 'What is your manager\'s email?'
+        },
+        {
+            type: 'input',
+            name: 'managerOfficeNumber',
+            message: 'What is your manager\'s office number?'
+        }
+    ])
+        .then(answers => {
+            let managerName = answers.managerName;
+            let managerId = answers.managerId;
+            let managerEmail = answers.managerEmail;
+            let managerOfficeNumber = answers.managerOfficeNumber;
+
+            team.manager.push(managerName, managerId, managerEmail, managerOfficeNumber);
+
+            newMember();
+        })
+        .catch(error => {
+            throw error;
+        })
+}
+
+function addEngineer() {
+    inquirer.prompt([
+        {
+            type: 'input',
+            name: 'engineerName',
+            message: 'What is your engineer\'s name?'
+        },
+        {
+            type: 'input',
+            name: 'engineerId',
+            message: 'What is your engineer\'s id?'
+        },
+        {
+            type: 'input',
+            name: 'engineerEmail',
+            message: 'What is your engineer\'s email?'
+        },
+        {
+            type: 'input',
+            name: 'engineerGitHub',
+            message: 'What is your engineer\'s GitHub username?'
+        }
+    ]).then(answers => {
+        let engineerName = answers.engineerName;
+        let engineerId = answers.engineerId;
+        let engineerEmail = answers.engineerEmail;
+        let engineerGitHub = answers.engineerGitHub;
+
+        team.engineer.push(engineerName, engineerId, engineerEmail, engineerGitHub);
+
+        newMember();
+    })
+        .catch(error => {
+            throw error;
+        })
+}
+
+function addIntern() {
+    inquirer.prompt([
+        {
+            type: 'input',
+            name: 'internName',
+            message: 'What is your intern\'s name?'
+        },
+        {
+            type: 'input',
+            name: 'internId',
+            message: 'What is your intern\'s id?'
+        },
+        {
+            type: 'input',
+            name: 'internEmail',
+            message: 'What is your intern\'s email?'
+        },
+        {
+            type: 'input',
+            name: 'internSchool',
+            message: 'What is your intern\'s school?'
+        }
+    ]).then(answers => {
+        let internName = answers.internName;
+        let internId = answers.internId;
+        let internEmail = answers.internEmail;
+        let internSchool = answers.internSchool;
+
+        team.intern.push(internName, internId, internEmail, internSchool);
+
+        newMember();
+    })
+        .catch(error => {
+            throw error;
+        })
+}
+
+function newMember() {
+    inquirer.prompt({
+        type: 'list',
+        name: 'addNewMember',
+        message: 'Which type of team member would you like to add?',
+        choices: ['Engineer', 'Intern', 'I don\'t want to add any more team members']
+    })
+        .then(answers => {
+            let { addNewMember } = answers;
+            if (addNewMember === 'Engineer') {
+                addEngineer();
+            }
+            if (addNewMember === 'Intern') {
+                addIntern();
+            }
+            if (addNewMember === 'I don\'t want to add any more team members') {
+                writeFile();
+            }
+        })
+        .catch(error => {
+            throw error;
+        })
+}
+
+// function generateHTML(answers) {
+//     return `
+//     <!DOCTYPE html>
+//     <html lang="en">
+    
+//     <head>
+//         <meta charset="UTF-8" />
+//         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+//         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+//         <title>My Team</title>
+//         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+//             integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+//         <link rel="stylesheet" href="style.css">
+//         <script src="https://kit.fontawesome.com/c502137733.js"></script>
+//     </head>
+    
+//     <body>
+//         <div class="container-fluid">
+//             <div class="row">
+//                 <div class="col-12 jumbotron mb-3 team-heading">
+//                     <h1 class="text-center">My Team</h1>
+//                 </div>
+//             </div>
+//         </div>
+//         <div class="container">
+//             <div class="row">
+//                 <div class="team-area col-12 d-flex justify-content-center">
+//                     {{ team }}
+//                 </div>
+//             </div>
+//         </div>
+//     </body>
+    
+//     </html>`;
+// }
+
+function writeFile() {
+    fsWriteFile("output/team.html", generateHTML(answers))
+        .then(() => {
+            console.log("Done writting file!")
+        })
+        .catch(error => {
+            throw error;
+        })
+}
+addManager();
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
