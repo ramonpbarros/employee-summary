@@ -31,7 +31,7 @@ Repository can be found here: [GitHub/ramonpbarros](https://github.com/ramonpbar
 
 ## Code Examples
 Show examples of usage:
-`put-your-code-here`
+`function writeFile() {fsWriteFile(outputPath, render(employeesArray)).then(() => {console.log("Done writting file!")}).catch(error => {throw error;})}`
 
 ## Features
 List of features ready and TODOs for future development
