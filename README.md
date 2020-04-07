@@ -18,12 +18,14 @@ Software engineering team generator command line application. The application wi
 ![Example screenshot](./img/screenshot.png)
 
 ## Technologies
-* Tech 1 - version 1.0
-* Tech 2 - version 2.0
-* Tech 3 - version 3.0
+* Node.js
+* Jest
+* JavaScript
+* CSS3
+* HTML5
 
 ## Setup
-Describe how to install / setup your local environement / add link to demo version.
+This application runs in the terminal. Make sure to `npm install` dependencies!
 
 ## Code Examples
 Show examples of usage:
