@@ -34,14 +34,13 @@ Show examples of usage:
 `function writeFile() {fsWriteFile(outputPath, render(employeesArray)).then(() => {console.log("Done writting file!")}).catch(error => {throw error;})}`
 
 ## Features
-List of features ready and TODOs for future development
-* Awesome feature 1
-* Awesome feature 2
-* Awesome feature 3
+List of features:
+* Use of fs module to prompt the user.
+* Dynamically genarate a HTML file.
 
 To-do list:
-* Wow improvement to be done 1
-* Wow improvement to be done 2
+* Improve design.
+* Add diferent teams.
 
 ## Status
 Project is: _in progress_
