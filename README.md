@@ -48,7 +48,7 @@ Project is: _in progress_
 * Check the application in the terminal. The application will be invoked with the following command: `node app.js`
 
 ## Inspiration
-Add here credits. Project inspired by..., based on...
+Project inspired by UCSD Coding Bootcamp, based on second month of course, applying node.js, Jest testing and JavaScript skills.
 
 ## Contact
 Created by [@ramonpbarros](https://github.com/ramonpbarros) - feel free to contact me!
