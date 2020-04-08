@@ -1,4 +1,5 @@
 # Employee Summary
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/ramonpbarros/readme-generator)
 > Node CLI that takes in information about employees and generates an HTML webpage that displays summaries for each person.
 
 ## Table of contents
