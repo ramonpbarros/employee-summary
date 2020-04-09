@@ -16,10 +16,10 @@ const render = require("./lib/htmlRenderer");
 let employeesArray = [];
 
 function start() {
+    console.log("Please build your team:")
     addManager();
 }
 
-console.log("Please build your team:")
 function addManager() {
     inquirer.prompt([
         {
